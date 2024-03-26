@@ -4,18 +4,18 @@
 VGgranite
 ---------
 
-Простое приложение для создание Socket -> Serial тунелей. Приложение имеет веб интерфейс управления.
+Simple application for creating Socket -> Serial tunnels. The application has a web control interface.
 
-Основные возможности:
+Main features:
 
- - Добавление Socket серверов
- - Добавление Socket клиентов
- - Добавление serial портов
- - Создание тунелей между портами
+ - Adding Socket Servers
+ - Adding Socket clients
+ - Add serial ports
+ - Create tunnels between ports
 
-Приложение следит за возможностью создания сервера или открытия последовательного порта. Если например преобразователь USB-Serial был переподключен - приложение само автоматически выполнит переоткрытие последовательного порта.
+The application monitors the possibility of creating a server or opening a serial port. If, for example, a USB to serial converter has been reconnected, the application automatically re-opens the serial port.
 
-**Required** nodejs > 16v
+**Required** nodejs > 16v or bun latest version
 
 OS Support:
  
@@ -24,33 +24,49 @@ OS Support:
  - Linux 
  - Android (termux)
 
-Установка
-==========
+INSTALL
+=======
 
-Для начала скачайте [последний релиз](https://github.com/ponikrf/VGranite/releases)
+First, download [latest release](https://github.com/ponikrf/VGranite/releases)
 
-Распакуйте его желательно в `/opt/vgranite`
-
-выполните:
+Unzip it preferably to `/opt/vgranite`.
 
 ```bash
-cd ./opt/vgranite
+cd /opt/vgranite
 npm install --only=production
 ```
 
-К сожалению, несмотря на то что это релиз, я не могу сложить все `npm` зависимости в `node_modules` вместе с релизом. Такая особенность связана с пакетом `serialport`.
+Unfortunately, even though this is a release, I can't put all `npm` dependencies in `node_modules` together with the release. This feature is related to the `serialport` package.
 
-Запуск:
+Run:
 
 ```bash
 npm run start
 ```
 
-По умолчанию используется два WEB-сервера:
+By default, two WEB servers are used:
 
- - **http://host:4000** - Веб интерфейс - данные для входа Login:`admin` Password:`admin`
+ - **http://host:4000** - Web interface - login data - Login:`admin` Password:`admin`
  - **http://host:3999** - API doc
 
 
-Структура сервиса и все настройки можно посмотреть в файле `./devices/vgranite/service.json`. Там интуитивно понятно, параметры которые нужно поменять для изменения портов и основных настроек.
+The structure of the service and all settings can be seen in the file `./devices/vgranite/service.json`. It is intuitive there, the parameters that need to be changed to change ports and basic settings.
+
+BUILD
+=====
+
+Для сборки, нам необходимо склонировать репозиторий:
+
+```bash
+cd /opt/
+git clone https://github.com/ponikrf/VGranite.git
+```
+
+Добавляем зависимости:
+
+```bash
+npm install
+```
+
+Основное приложение будет готово. Но оно не будет иметь документации и веб интерфейса.
 
