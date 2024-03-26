@@ -52,21 +52,54 @@ By default, two WEB servers are used:
 
 The structure of the service and all settings can be seen in the file `./devices/vgranite/service.json`. It is intuitive there, the parameters that need to be changed to change ports and basic settings.
 
+
+AUTOSTART
+==========
+
+There is a service file for autorun in ubuntu. Copy it:
+
+```bash
+cp /opt/vgranite/vgranite.service /etc/systemd/system/
+```
+
+Naturally, at your own risk, since the service is launched from root.
+
+Updating the services daemon:
+
+```bash
+systemctl daemon-reload
+systemctl enable vgranite
+systemctl start vgranite
+```
+
 BUILD
 =====
 
-Для сборки, нам необходимо склонировать репозиторий:
+To build, we need to clone the repository:
 
 ```bash
 cd /opt/
 git clone https://github.com/ponikrf/VGranite.git
 ```
 
-Добавляем зависимости:
+Installing dependencies:
 
 ```bash
 npm install
 ```
 
-Основное приложение будет готово. Но оно не будет иметь документации и веб интерфейса.
+The main application will be ready, but it will not have documentation and web interface.
 
+To build the interface, take a look at the repository [VGranite-Web](https://github.com/ponikrf/VGranite-Web)
+
+
+ApiDocs build:
+
+```bash
+npm install apidoc -g
+```
+
+```bash
+cd /opt/vgranite/
+apidoc apidoc -i devices -o apidoc
+```
