@@ -1,0 +1,24 @@
+{
+    "blocks": [
+      {
+        "label": "Client settings",
+        "fields": [
+          {
+            "type": "text",
+            "model": "path",
+            "label": "Path",
+            "default": "127.0.0.1:4001",
+            "description": "Host for connect"
+          },
+          {
+              "type": "textarea",
+              "model": "description",
+              "label": "Description",
+              "default": "",
+              "description": ""
+          }
+        ]
+      }
+    ]
+  }
+  

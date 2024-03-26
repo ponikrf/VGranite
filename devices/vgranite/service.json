@@ -1,0 +1,153 @@
+{
+  "devices": [
+    {
+      "id": "HttpServer",
+      "type": "vgranite.HttpServer",
+      "options": {
+        "port": 4000,
+        "requestPorts": ["guard", "users", "converters","netserv","netclients", "serials", "serial", "connector", "database"],
+        "routes": [
+          { "method": "post", "path": "/users/login", "port": "users.request" },
+          { "method": "post", "path": "/users/logout", "port": "users.request" },
+          
+          { "method": "get", "path": "/net/servers/struct", "port": "netserv.request" },
+          { "method": "get", "path": "/net/servers/list", "port": "netserv.request" },
+          { "method": "put", "path": "/net/servers/create", "port": "netserv.request" },
+          { "method": "put", "path": "/net/servers/update", "port": "netserv.request" },
+          { "method": "post", "path": "/net/servers/delete", "port": "netserv.request" },
+          
+          { "method": "get", "path": "/net/clients/struct", "port": "netclients.request" },
+          { "method": "get", "path": "/net/clients/list", "port": "netclients.request" },
+          { "method": "put", "path": "/net/clients/create", "port": "netclients.request" },
+          { "method": "put", "path": "/net/clients/update", "port": "netclients.request" },
+          { "method": "post", "path": "/net/clients/delete", "port": "netclients.request" },
+
+          { "method": "get", "path": "/serials/struct", "port": "serials.request" },
+          { "method": "get", "path": "/serials/list", "port": "serials.request" },
+          { "method": "put", "path": "/serials/create", "port": "serials.request" },
+          { "method": "put", "path": "/serials/update", "port": "serials.request" },
+          { "method": "post", "path": "/serials/delete", "port": "serials.request" },
+          
+          { "method": "get", "path": "/connect/sources", "port": "connector.request" },
+          { "method": "get", "path": "/connect/list", "port": "connector.request" },
+          { "method": "put", "path": "/connect/create", "port": "connector.request" },
+          { "method": "post", "path": "/connect/delete", "port": "connector.request" },
+          
+          { "method": "post", "path": "/database/read", "port": "database.request" },
+
+          { "method": "get",  "path": "/serial/path",  "port": "serial.request"}
+        ]
+      }
+    },
+    {
+      "id": "HttpStatic",
+      "type": "vgranite.HttpStatic",
+      "options": {
+        "port": 3999,
+        "static": "./apidoc"
+      }
+    },
+    {
+      "id": "Guard",
+      "type": "vgranite.Guard",
+      "options": {
+        "guestAccess": ["/users/login"]
+      }
+    },
+    {
+      "id": "ApiUsers",
+      "type": "vgranite.ApiUsers",
+      "options": {
+        "username": "admin",
+        "password": "admin"
+      }
+    },
+    {
+      "id": "Sessions",
+      "type": "vgranite.Sessions",
+      "options": {}
+    },
+    {
+      "id": "ApiNetServers",
+      "type": "vgranite.ApiNetServers",
+      "options": {}
+    },
+    {
+      "id": "ApiNetClients",
+      "type": "vgranite.ApiNetClients",
+      "options": {}
+    },
+    {
+      "id": "ApiSerials",
+      "type": "vgranite.ApiSerials",
+      "options": {}
+    },
+    {
+      "id": "ApiSerial",
+      "type": "vgranite.ApiSerial",
+      "options": {}
+    },
+    {
+      "id": "ApiDB",
+      "type": "vgranite.ApiDB",
+      "options": {
+        "inputs": 4
+      }
+    },
+    {
+      "id": "ApiConnector",
+      "type": "vgranite.ApiConnector",
+      "options": {
+        "sources": [
+          {
+            "caption": "Servers",
+            "device": "ApiNetServers",
+            "path": "/net/servers/"
+          },
+          {
+            "caption": "Clients",
+            "device": "ApiNetClients",
+            "path": "/net/clients/"
+          },
+          {
+            "caption": "Serials",
+            "device": "ApiSerials",
+            "path": "/serials/"
+          }
+        ]
+      }
+    }
+  ],
+  "connections": [
+    "HttpServer.guard.request -> Guard.request",
+    "HttpServer.users.request -> ApiUsers.request",
+    "HttpServer.netserv.request -> ApiNetServers.request",
+    "HttpServer.netclients.request -> ApiNetClients.request",
+    "HttpServer.serials.request -> ApiSerials.request",
+    "HttpServer.serial.request -> ApiSerial.request",
+    "HttpServer.connector.request -> ApiConnector.request",
+    "HttpServer.database.request -> ApiDB.request",
+
+    "ApiNetServers.connect -> ApiConnector.connect1",
+    "ApiConnector.connect1 -> ApiNetServers.connect",
+    "ApiNetServers.metric -> ApiDB.metric1",
+
+    "ApiNetClients.connect -> ApiConnector.connect2",
+    "ApiConnector.connect2 -> ApiNetClients.connect",
+    "ApiNetClients.metric -> ApiDB.metric2",
+
+    "ApiSerials.connect -> ApiConnector.connect3",
+    "ApiConnector.connect3 -> ApiSerials.connect",
+    "ApiSerials.metric -> ApiDB.metric3",
+
+    "ApiConnector.metric -> ApiDB.metric4",
+
+    "ApiNetServers.connect.update -> ApiConnector.connect1.update",
+    "ApiNetClients.connect.update -> ApiConnector.connect2.update",
+    "ApiSerials.connect.update -> ApiConnector.connect3.update",
+
+    "Guard.session.get -> Sessions.session.get",
+		"ApiUsers.session.add -> Sessions.session.add",
+		"ApiUsers.session.close -> Sessions.session.close"
+  ]
+}

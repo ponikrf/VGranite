@@ -1,0 +1,54 @@
+{
+    "blocks": [
+      {
+        "label": "Server settings",
+        "fields": [
+          {
+            "type": "text",
+            "model": "path",
+            "label": "Path",
+            "default": "0.0.0.0:4001",
+            "description": "Server host:port"
+          },
+          {
+              "type": "textarea",
+              "model": "description",
+              "label": "Description",
+              "default": "",
+              "description": ""
+          }
+        ]
+      },
+      {
+        "label": "Additional",
+        "fields": [
+          {
+            "type": "number",
+            "model": "timeout",
+            "label": "Timeout in ms ",
+            "default": 60000,
+            "min": 0,
+            "max": 3600000,
+            "description": "Idle connection timeout (0 for off timeout)"
+          },
+          {
+            "type": "number",
+            "model": "clients",
+            "label": "Clients",
+            "default": 5,
+            "min": 1,
+            "max": 1200,
+            "description": "Maximum clients connections"
+          },
+          {
+            "type": "checkbox",
+            "model": "clientsQueue",
+            "label": "Clients queue",
+            "default": true,
+            "description": "Terminate connections in a queuing cycle"
+          }
+        ]
+      }
+    ]
+  }
+  
