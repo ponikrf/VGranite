@@ -91,7 +91,24 @@
       "id": "ApiDB",
       "type": "vgranite.ApiDB",
       "options": {
-        "inputs": 4
+        "inputs": 4,
+        "schemes": [
+          { 
+            "scheme": "system",
+            "pattern":"system.*", 
+            "retention": "5s:1h,1m:6h,5m:1d,30m:1w,1h:1mon,12h:1y"
+          },
+          { 
+            "scheme": "connect",
+            "pattern":"connect.*", 
+            "retention": "1m:24h,5m:7d,1h:1mon,6h:1y"
+          },
+          { 
+            "scheme": "traffic",
+            "pattern":"traffic.*", 
+            "retention": "1m:24h,5m:7d,1h:1mon,6h:1y"
+          }
+        ]
       }
     },
     {
