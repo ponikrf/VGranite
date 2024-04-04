@@ -12,6 +12,7 @@ module.exports = class ApiNetServers extends ApiElement {
 
   modelScheme = joi.object({
     id: joi.string().allow(null, ''),
+    marker: joi.string().allow(null, ''),
     path: joi.string().default("0.0.0.0:4001"),
     // host: joi.string().default("0.0.0.0"),
     // port: joi.number().min(1).max(65535).required(),

@@ -3,12 +3,11 @@
  * Licensed under the Apache License, Version 2.0
 */
 
-const { Port } = require('vrack2-core')
+const { Port, Rule } = require('vrack2-core')
 const ApiDevice = require('./ApiDevice')
 const ApiError = require('./extends/ApiError')
 const crypto = require('crypto')
 const joi = require('joi')
-const { existsSync } = require('fs')
 
 module.exports = class ApiElement extends ApiDevice {
   description = ''
@@ -30,6 +29,13 @@ module.exports = class ApiElement extends ApiDevice {
 
   modelScheme = joi.object({ id: joi.string().allow(null, ''), })
   idScheme = joi.object({ id: joi.string().required() })
+
+  checkOptions() {
+    return {
+      markers: Rule.object().example({})
+        .description('String markers')
+    }
+  }
 
   storage = { list: {} }
   shares = { 
@@ -91,6 +97,10 @@ module.exports = class ApiElement extends ApiDevice {
         await this.startElement(id)
       }
     }
+  }
+
+  async GETMarkers(){
+    return this.options.markers
   }
 
   async GETStruct(){

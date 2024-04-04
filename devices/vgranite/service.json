@@ -10,18 +10,21 @@
           { "method": "post", "path": "/users/login", "port": "users.request" },
           { "method": "post", "path": "/users/logout", "port": "users.request" },
           
+          { "method": "get", "path": "/net/servers/markers", "port": "netserv.request" },
           { "method": "get", "path": "/net/servers/struct", "port": "netserv.request" },
           { "method": "get", "path": "/net/servers/list", "port": "netserv.request" },
           { "method": "put", "path": "/net/servers/create", "port": "netserv.request" },
           { "method": "put", "path": "/net/servers/update", "port": "netserv.request" },
           { "method": "post", "path": "/net/servers/delete", "port": "netserv.request" },
           
+          { "method": "get", "path": "/net/clients/markers", "port": "netclients.request" },
           { "method": "get", "path": "/net/clients/struct", "port": "netclients.request" },
           { "method": "get", "path": "/net/clients/list", "port": "netclients.request" },
           { "method": "put", "path": "/net/clients/create", "port": "netclients.request" },
           { "method": "put", "path": "/net/clients/update", "port": "netclients.request" },
           { "method": "post", "path": "/net/clients/delete", "port": "netclients.request" },
 
+          { "method": "get", "path": "/serials/markers", "port": "serials.request" },
           { "method": "get", "path": "/serials/struct", "port": "serials.request" },
           { "method": "get", "path": "/serials/list", "port": "serials.request" },
           { "method": "put", "path": "/serials/create", "port": "serials.request" },
@@ -70,17 +73,27 @@
     {
       "id": "ApiNetServers",
       "type": "vgranite.ApiNetServers",
-      "options": {}
+      "options": {
+        "markers": {}
+      }
     },
     {
       "id": "ApiNetClients",
       "type": "vgranite.ApiNetClients",
-      "options": {}
+      "options": {
+        "markers": {}
+      }
     },
     {
       "id": "ApiSerials",
       "type": "vgranite.ApiSerials",
-      "options": {}
+      "options": {
+        "markers": {
+          "text-bg-primary": "RS-232",
+          "text-bg-dark": "CAN",
+          "text-bg-success": "RS-485"
+        }
+      }
     },
     {
       "id": "ApiSerial",

@@ -12,6 +12,7 @@ module.exports = class ApiSerials extends ApiElement {
 
   modelScheme = joi.object({
     id: joi.string().allow(null, ''),
+    marker: joi.string().allow(null, ''),
     path: joi.string().required(),
     baudRate: joi.number().min(2400).max(921600).default(9600),
     dataBits: joi.number().min(5).max(8).default(8),

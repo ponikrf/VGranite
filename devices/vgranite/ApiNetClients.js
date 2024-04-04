@@ -12,6 +12,7 @@ module.exports = class ApiNetClients extends ApiElement {
 
   modelScheme = joi.object({
     id: joi.string().allow(null, ''),
+    marker: joi.string().allow(null, ''),
     path: joi.string().default("127.0.0.1:4001"),
     description: joi.string().allow(null, '')
   })
