@@ -24,6 +24,13 @@ OS Support:
  - Linux 
  - Android (termux)
 
+LAST UPDATE 1.1.0
+=================
+ - Add markers for all elements. See option `markers` in `./devices/vgranite/service.json`
+ - Add setting **Except request** for serial. Except request from response
+ - Add setting **Delay Data** for serial. Delay sending data after the first response while waiting for the rest of the response
+ - Add setting **Delay Timeout** for serial. Response delay timeout 
+
 INSTALL
 =======
 
@@ -71,6 +78,11 @@ systemctl daemon-reload
 systemctl enable vgranite
 systemctl start vgranite
 ```
+
+TROUBLESHOOTING
+===============
+
+ - **Permission denied: '/dev/ttyUSB0'** - Mb try use command `sudo chmod a+rw /dev/ttyUSB0`
 
 BUILD
 =====

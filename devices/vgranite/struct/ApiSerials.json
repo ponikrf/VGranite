@@ -80,6 +80,34 @@
               "description": ""
           }
         ]
+      },
+      {
+        "label": "Additional",
+        "fields": [
+          {
+            "type": "checkbox",
+            "model": "exceptRequest",
+            "label": "Except request",
+            "default": false,
+            "description": "Except request from response"
+          },
+          {
+            "type": "checkbox",
+            "model": "delayData",
+            "label": "Delay Data",
+            "default": false,
+            "description": "Delay sending data after the first response while waiting for the rest of the response"
+          },
+          {
+            "type": "number",
+            "model": "delayTimeout",
+            "label": "Delay Timeout",
+            "default": 300,
+            "min": 1,
+            "max": 5000,
+            "description": "Response delay timeout (min = 1, max = 5000)"
+          }
+        ]
       }
     ]
   }

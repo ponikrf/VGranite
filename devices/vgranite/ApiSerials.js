@@ -18,7 +18,10 @@ module.exports = class ApiSerials extends ApiElement {
     dataBits: joi.number().min(5).max(8).default(8),
     stopBits: joi.number().min(1).max(2).default(1),
     parity: joi.string().valid('none', 'even', 'odd'),
-    description: joi.string().allow(null, '')
+    description: joi.string().allow(null, ''),
+    exceptRequest: joi.boolean().default(false).required(),
+    delayData: joi.boolean().default(false).required(),
+    delayTimeout: joi.number().min(150).max(5000).default(300).required(),
   })
 
   structPath = './struct/ApiSerials.json'
@@ -143,6 +146,9 @@ module.exports = class ApiSerials extends ApiElement {
       this.elements[id].params.dataBits = conf.dataBits
       this.elements[id].params.stopBits = conf.stopBits
       this.elements[id].params.parity = conf.parity
+      this.elements[id].params.exceptRequest = conf.exceptRequest
+      this.elements[id].params.delayData = conf.delayData
+      this.elements[id].params.delayTimeout = conf.delayTimeout
 
       this.elements[id].serialData = (data) => {
         this.receiveData(id,data)
